@@ -9,9 +9,10 @@ const sent = new CoreNLP.simple.Sentence('My name is Fred, I’m an artist from 
 pipeline
   .annotate(sent)
   .then(data => {
-    global.console.log('parse', data.parse());
+    // global.console.log('parse', data.parse());
     const tree = CoreNLP.util.Tree.fromSentence(data);
-    global.console.log(tree.dump());
+    tree.visitLeaves(node => console.log(node.word(), node.pos(), node.token().ner()));
+    // global.console.log(tree.dump());
   })
   .catch(err => {
     global.console.log('err', err);

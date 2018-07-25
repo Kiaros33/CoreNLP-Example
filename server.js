@@ -11,7 +11,7 @@ pipeline
   .then(data => {
     const tree = CoreNLP.util.Tree.fromSentence(data);
     tree.visitLeaves(node => global.console.log(node.word(), node.pos(), node.token().ner()));
-    global.console.log(data.words());
+
     global.console.log(data.nerTags());
   })
   .catch(err => {
