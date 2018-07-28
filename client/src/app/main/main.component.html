@@ -1,0 +1,59 @@
+<div>
+
+  <p *ngIf="isValidFormSubmitted" [ngClass]="'success'">
+    Form submitted successfully.
+  </p>
+
+  <form #testForm="ngForm" (ngSubmit)="onFormSubmit(testForm)">
+    <div>
+      <label for="searchString">Text for analysis:</label>
+      <input id="searchString" name="searchString" [ngModel]="form.text" required #searchString="ngModel">
+    </div>
+
+
+    <div>
+      <label for="pipeline">Pipeline</label>
+      <input id="pipeline" type="radio" value="Pipeline" name="mode" [ngModel]="form.mode" required #mode="ngModel">
+
+      <label for="treebank">Treebank</label>
+      <input id="treebank" type="radio" value="TreeBank" name="mode" [ngModel]="form.mode" required #mode="ngModel">
+    </div>
+
+    <div>
+      <label>
+        <input type="checkbox" name="tokenize" [ngModel]="form.tokenize"> - Tokenize
+      </label>
+      <br>
+
+      <label>
+        <input type="checkbox" name="parse" [ngModel]="form.parse"> - Parse
+      </label>
+      <br>
+
+      <label>
+        <input type="checkbox" name="pos" [ngModel]="form.pos"> - Pos
+      </label>
+      <br>
+
+      <label>
+        <input type="checkbox" name="ssplit" [ngModel]="form.ssplit"> - Ssplit
+      </label>
+      <br>
+
+      <label>
+        <input type="checkbox" name="ner" [ngModel]="form.ner"> - Ner
+      </label>
+      <br>
+
+      <label>
+        <input type="checkbox" name="lemma" [ngModel]="form.lemma"> - Lemma
+      </label>
+    </div>
+
+
+
+    <button>Submit</button>
+
+
+  </form>
+</div>

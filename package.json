@@ -5,19 +5,21 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "babel-node server.js --presets es2015,stage-2",
-    "start2": "babel-node server2.js --presets es2015,stage-2",
+    "start": "cd ./server && babel-node server.js --presets es2015,stage-2",
     "lint-staged": "lint-staged",
     "lint:js": "eslint",
+    "client": "npm run start --prefix client",
     "java": "cd ./corenlp && java -mx4g -cp '*' edu.stanford.nlp.pipeline.StanfordCoreNLPServer -port9000 -timeout 15000",
-    "dev": "concurrently \"npm run java\" \"npm start\""
+    "dev": "concurrently \"npm run java\" \"npm start\" \"npm run client\""
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
     "concurrently": "^3.6.1",
     "corenlp": "^1.4.3",
+    "cors": "^2.8.4",
     "express": "^4.16.3"
   },
   "devDependencies": {
