@@ -1,0 +1,46 @@
+<div class="wrapper">
+
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+        <div class="inpWrapper">
+            <label for="text">Text for analysis:</label>
+            <input type="text" id="text" formControlName="text">
+        </div>
+
+        <!-- <div class="modes">
+            <label for="pipeline">Pipeline</label>
+            <input id="pipeline" name="mode" type="radio" formControlName="mode" value="pipeline">
+
+            <label for="treebank">Treebank</label>
+            <input id="treebank" name="mode" type="radio" formControlName="mode" value="treebank">
+        </div> -->
+
+        <div class="checkboxes">
+            <!-- <label>
+                <input type="checkbox" formControlName="parse">- Parse
+            </label>
+
+            <label>
+                <input id="pos" type="checkbox" formControlName="pos">- Pos
+            </label>
+
+            <label>
+                <input type="checkbox" formControlName="ssplit">- Ssplit
+            </label> -->
+
+            <label>
+                <input type="checkbox" formControlName="ner">- Ner
+            </label>
+
+            <label>
+                <input type="checkbox" formControlName="lemma">- Lemma
+            </label>
+        </div>
+
+
+        <div class="sbmBtn">
+            <button [disabled]="!myForm.valid" type="submit">Submit</button>
+        </div>
+
+
+    </form>
+</div>

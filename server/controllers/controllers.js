@@ -1,36 +1,28 @@
 import CoreNLP from 'corenlp';
-import commonProcess from './general';
+
+const commonProcess = require('./general');
 
 module.exports = function f(app) {
-  app.post('/api/pipeline', (req, res) => {
+  app.post('/api/text', (req, res) => {
     const settings = commonProcess(req.body);
+    const doc = new CoreNLP.simple.Document(req.body.text);
     settings.pipeline
-      .annotate(settings.sent)
-      .then(data =>
-        res.status(200).json({
-          responseWords: data.words(),
-          responseNerTags: data.nerTags(),
-        })
-      )
-      .catch(err => {
-        global.console.log('err', err);
-      });
-  });
-
-  app.post('/api/treeBank', (req, res) => {
-    const settings = commonProcess(req.body);
-    settings.pipeline
-      .annotate(settings.sent)
+      .annotate(doc)
       .then(data => {
-        const dataParsed = data.parse();
-        const tree = CoreNLP.util.Tree.fromSentence(data);
         const nodes = [];
-        tree.visitLeaves(node => nodes.push([node.word(), node.pos(), node.token().ner()]));
-        const dumpedTree = tree.dump();
+        const dumpedTree = [];
+        const sentences = data.sentences();
+        // const dataParsed = data.parse();
+        sentences.forEach(sentence => {
+          const tree = CoreNLP.util.Tree.fromSentence(sentence);
+          tree.visitLeaves(node => nodes.push([node.word(), node.pos(), node.token().ner()]));
+          dumpedTree.push(JSON.parse(tree.dump()));
+        });
+
         return res.status(200).json({
-          responseParsed: dataParsed,
           responseNodes: nodes,
           responseTree: dumpedTree,
+          // responseParsed: dataParsed,
         });
       })
       .catch(err => {

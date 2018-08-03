@@ -13,7 +13,7 @@ export class ReqHandlerService {
   constructor(private http: HttpClient) {}
 
   analyzeText(data) {
-    let url = 'http://localhost:3001/api/' + data.mode;
+    let url = 'http://localhost:3001/api/text';
     return this.http.post(url, data, httpOptions).pipe(tap(text => console.log(`analyzed`)));
   }
 }

@@ -1,0 +1,51 @@
+.wrapper {
+  width: 500px;
+  margin: 0 auto;
+  text-align: left;
+  box-sizing: border-box;
+}
+
+.inpWrapper {
+  text-align: center;
+}
+
+#text {
+  margin: 7px 0 7px 0;
+  width: 100%;
+  border: 1px solid grey;
+  border-radius: 5px;
+  padding: 0 5px 0 5px;
+  height: 20px;
+  box-sizing: border-box;
+}
+
+.modes {
+  text-align: center;
+}
+
+.modes input {
+  margin: 10px;
+}
+
+.checkboxes {
+  display: flex;
+  min-width: 100%;
+  box-sizing: border-box;
+}
+
+.checkboxes label {
+  box-sizing: border-box;
+  min-width: 18%;
+  margin: 10px 1% 10px 1%;
+}
+
+.sbmBtn {
+  display: block;
+  text-align: center;
+  margin: 7px auto;
+}
+
+.sbmBtn button {
+  width: 90px;
+  height: 30px;
+}
