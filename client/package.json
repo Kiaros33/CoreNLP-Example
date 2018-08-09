@@ -26,7 +26,6 @@
     "d3": "^5.5.0",
     "rxjs": "^6.0.0",
     "rxjs-compat": "^6.2.2",
-    "vex-js": "^4.1.0",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {

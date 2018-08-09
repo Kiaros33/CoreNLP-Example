@@ -44,3 +44,34 @@
 
     </form>
 </div>
+
+<div class="properties">
+    <h4>Properties (hover on node to see) explanation:</h4>
+    <span>Index - word position in the sentence.</span>
+    <span>BeginsAt - word's first character position in the sentence.</span>
+    <span>EndsAt - word's last character position in the sentence.</span>
+    <span>PosInfo - part of speech.</span>
+    <span>Lemma - base form of the word.</span>
+    <span>Ner - recognizes whether the word is date, name, religion etc. or outputs O if the word has no special group to belong
+        to.
+    </span>
+    <span>Pos - part of speech abbreviation.</span>
+
+</div>
+<div class="mood" *ngIf="sentiment;else other_content">
+    Sentiment section (min score is -5, max score is 5):
+    <div class="comparativeNeg" *ngIf="sentiment.comparative<0">The entered text has a negative meaning with ({{sentiment.comparative}}) score.</div>
+    <div class="comparativePos" *ngIf="sentiment.comparative>0">The entered text has a positive meaning with ({{sentiment.comparative}}) score.</div>
+    <div class="comparativeNeu" *ngIf="sentiment.comparative==0">The entered text has a neutral meaning with ({{sentiment.comparative}}) score.</div>
+</div>
+
+<ng-template #other_content>
+    <div class="mood">
+        <div>
+            Sentiment section (min score is -5, max score is 5):
+        </div>
+        <div>
+            Submit any text to make Sentimental Analysis.
+        </div>
+    </div>
+</ng-template>

@@ -12,8 +12,14 @@ const httpOptions = {
 export class ReqHandlerService {
   constructor(private http: HttpClient) {}
 
+  getLocation() {
+    let parser: any = document.createElement('a');
+    parser.href = window.location;
+    return parser;
+  }
+
   analyzeText(data) {
-    let url = 'http://localhost:3001/api/text';
+    let url = `http://${this.getLocation().hostname}:3001/api/text`;
     return this.http.post(url, data, httpOptions).pipe(tap(text => console.log(`analyzed`)));
   }
 }

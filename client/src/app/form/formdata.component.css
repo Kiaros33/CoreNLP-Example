@@ -49,3 +49,50 @@
   width: 90px;
   height: 30px;
 }
+
+.properties {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  border: 1px solid black;
+  width: 400px;
+  box-sizing: border-box;
+  border-radius: 7px 7px 0 0;
+}
+.properties h4 {
+  padding: 7px;
+  margin: 0;
+}
+.properties span {
+  padding: 3px 20px 3px 20px;
+  font-size: 13px;
+}
+
+.mood {
+  text-align: center;
+  box-sizing: border-box;
+  font-size: 14px;
+  border: 1px solid;
+  border-top: none;
+  border-radius: 0 0 7px 7px;
+  padding: 7px;
+  width: 400px;
+  margin: 0 auto;
+}
+.mood div {
+  padding: 3px 0 3px 0;
+}
+
+.comparativePos {
+  color: rgb(0, 222, 0);
+}
+
+.comparativeNeu {
+  color: rgb(0, 0, 0);
+}
+
+.comparativeNeg {
+  color: rgb(222, 0, 0);
+}

@@ -5,12 +5,14 @@
   "main": "server.js",
   "scripts": {
     "test": "mocha --compilers js:babel-core/register --timeout 25000 server/tests/*.test.js ",
-    "start": "cd ./server && babel-node server.js --presets es2015,stage-2",
+    "start": "concurrently \"npm run java\" \"npm run server\"",
+    "server": "cd ./server && babel-node server.js --presets es2015,stage-2",
     "lint-staged": "lint-staged",
     "lint:js": "eslint",
     "client": "npm run start --prefix client",
     "java": "cd ./corenlp && java -mx4g -cp '*' edu.stanford.nlp.pipeline.StanfordCoreNLPServer -port9000 -timeout 15000",
-    "dev": "concurrently \"npm run java\" \"npm start\" \"npm run client\""
+    "dev": "concurrently \"npm run java\" \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "author": "",
   "license": "ISC",
@@ -20,7 +22,8 @@
     "concurrently": "^3.6.1",
     "corenlp": "^1.4.3",
     "cors": "^2.8.4",
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "sentiment": "^5.0.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import * as d3 from 'd3';
 
 @Injectable({
@@ -19,17 +19,15 @@ export class D3Service {
   links: any;
   treeData: any;
   length: number;
-
-  //Popup section
-  // characterOffsetBegin: number;
-  // characterOffsetEnd: number;
-  // lemma: string;
-  // ner: string;
-  // pos: string;
-  // xPosition: any;
-  // yPosition: any;
+  div: any;
 
   fetchData = tree => {
+    this.div = d3
+      .select('body')
+      .append('div')
+      .attr('class', 'tooltip')
+      .style('opacity', '0');
+
     if (this.length !== 0) {
       for (let i = 0; i < this.length; i++) {
         d3.select('svg').remove();
@@ -44,10 +42,16 @@ export class D3Service {
     }
   };
 
+  offset = el => {
+    let rect = el.getBoundingClientRect();
+    return [rect.left, rect.top];
+  };
+
   setData() {
     this.margin = { top: 0, right: 0, bottom: 0, left: 0 };
     this.width = 1500 - this.margin.left - this.margin.right;
-    this.height = 1200 - this.margin.top - this.margin.bottom;
+    this.height = 1400 - this.margin.top - this.margin.bottom;
+
     this.svg = d3
       .select('body')
       .append('svg')
@@ -82,7 +86,6 @@ export class D3Service {
   }
 
   click = d => {
-    console.log('click');
     if (d.children) {
       d._children = d.children;
       d.children = null;
@@ -94,25 +97,44 @@ export class D3Service {
   };
 
   mouseOver = d => {
-    // if (d.data.token) {
-    //   this.characterOffsetBegin = d.data.token.characterOffsetBegin;
-    //   this.characterOffsetEnd = d.data.token.characterOffsetEnd;
-    //   this.lemma = d.data.token.lemma;
-    //   this.ner = d.data.token.ner;
-    //   this.pos = d.data.token.pos;
-    // }
-    // console.log(this.pos);
-    // const dialogRef = this.modal
-    //   .alert()
-    //   .size('sm')
-    //   .showClose(false)
-    //   .isBlocking(false)
-    //   .okBtn('')
-    //   .title('A simple Alert style modal window')
-    //   .body(`Hello`)
-    //   .open()
-    //   .close();
-    // dialogRef.result.then(result => alert(`The result is: ${result}`));
+    if (d.data.posInfo) {
+      this.div.style('opacity', '1');
+    }
+
+    if (d.data.posInfo && d.data.posInfo.group) {
+      this.div.html(
+        `
+      <div>
+      <span>Index: ${d.data.token.index - 1}</span><br/>
+      <span>BeginsAt: ${d.data.token.characterOffsetBegin}</span><br/>
+      <span>PosInfo: ${d.data.posInfo.group}</span><br/>
+      <span>EndsAt: ${d.data.token.characterOffsetEnd}</span><br/>
+      <span>Lemma: ${d.data.token.lemma}</span><br/>
+      <span>Ner: ${d.data.token.ner}</span><br/>
+      <span>Pos: ${d.data.token.pos}</span><br/>
+      </div>
+      `
+      );
+    } else if (d.data.posInfo && d.data.posInfo.description) {
+      this.div.html(
+        `
+      <div>
+      <span>PosInfo: ${d.data.posInfo.description}</span><br/>
+      </div>
+      `
+      );
+    }
+    this.div
+      .style('position', 'absolute')
+      .style('left', this.offset(event.target)[0] + window.scrollX + 15 + 'px')
+      .style('top', this.offset(event.target)[1] + window.scrollY + 15 + 'px');
+  };
+
+  mouseOut = d => {
+    this.div
+      .style('opacity', '0')
+      .style('left', 0 + 'px')
+      .style('top', 0 + 'px');
   };
 
   updateChart(source) {
@@ -136,8 +158,7 @@ export class D3Service {
       .attr('transform', d => {
         return 'translate(' + source.y0 + ',' + source.x0 + ')';
       })
-      .on('click', this.click)
-      .on('mouseover', this.mouseOver);
+      .on('click', this.click);
 
     nodeEnter
       .append('circle')
@@ -145,7 +166,9 @@ export class D3Service {
       .attr('r', 1e-6)
       .style('fill', d => {
         return d._children ? 'lightsteelblue' : '#fff';
-      });
+      })
+      .on('mouseover', this.mouseOver)
+      .on('mouseout', this.mouseOut);
 
     nodeEnter
       .append('text')

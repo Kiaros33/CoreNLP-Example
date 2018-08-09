@@ -1,10 +1,13 @@
 import CoreNLP from 'corenlp';
+import Sentiment from 'sentiment';
 
 const commonProcess = require('./general');
 
 module.exports = function f(app) {
   app.post('/api/text', (req, res) => {
     const settings = commonProcess(req.body);
+    const sentiment = new Sentiment();
+    const sentimentResult = sentiment.analyze(req.body.text);
     const doc = new CoreNLP.simple.Document(req.body.text);
     settings.pipeline
       .annotate(doc)
@@ -22,6 +25,7 @@ module.exports = function f(app) {
         return res.status(200).json({
           responseNodes: nodes,
           responseTree: dumpedTree,
+          sentimentResult,
           // responseParsed: dataParsed,
         });
       })

@@ -10,6 +10,7 @@ import { D3Service } from '../d3.service';
 })
 export class FormDataComponent implements OnInit {
   myForm: FormGroup;
+  sentiment: number;
 
   constructor(private reqHandlerService: ReqHandlerService, private d3Service: D3Service) {}
 
@@ -26,6 +27,7 @@ export class FormDataComponent implements OnInit {
   onSubmit() {
     this.reqHandlerService.analyzeText(this.dataPrepare()).subscribe(result => {
       this.d3Service.fetchData(result);
+      this.sentiment = (result as any).sentimentResult;
     });
   }
 
