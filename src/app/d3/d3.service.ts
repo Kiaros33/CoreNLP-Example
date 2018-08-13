@@ -218,7 +218,6 @@ export class D3Service {
       .remove();
 
     nodeExit.select('circle').attr('r', 1e-6);
-
     nodeExit.select('text').style('fill-opacity', 1e-6);
 
     let link = this.svg.selectAll('path.link').data(this.links, d => {

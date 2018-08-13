@@ -1,7 +1,7 @@
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ReqHandlerService } from '../req-handler.service';
+import { ReqHandlerService } from '../request/req-handler.service';
 import { Component, OnInit } from '@angular/core';
-import { D3Service } from '../d3.service';
+import { D3Service } from '../d3/d3.service';
 
 @Component({
   selector: 'app-formdata',

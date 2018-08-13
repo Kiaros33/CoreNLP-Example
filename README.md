@@ -1,15 +1,14 @@
 # CoreNLP example
 
 Created to try node-corenlp and sentiment libraries functionality.
+This is frontend part of the project. You should have backend up to make things work.
 
 ## Installing
 
 1. Download project;
-2. Download corenlp package from here 'https://stanfordnlp.github.io/CoreNLP/#download' , rename 'stanford-corenlp-full-???-??-??' to 'corenlp' and put in the root directory of the project;
-3. JDK environment should be installed as well ('http://www.oracle.com/technetwork/java/javase/downloads/jdk10-downloads-4416644.html');
-4. Type 'npm i' in terminal when in root directory of the project;
+2. Type 'npm i' in terminal when in root directory of the project and wait untill everything downloaded and installed;
 
 ## Try it out
 
-1. Type 'npm run dev' when in root directory of the project to start everything;
-2. Check functionality at http://localhost:4200;
+1. Type 'ng serve --port (port number)' when in root directory of the project to start client. Default port number is 4200;
+2. Check functionality at http://localhost:(port number from step #1);
